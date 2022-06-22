@@ -1,0 +1,34 @@
+
+.new-emp {
+    background-color: lightgray;
+}
+
+input {
+    width: 500px;
+    height: 40px;
+    background-color: white;
+    border: none;
+    padding-left: 15px;
+    margin-top: 15px;
+    border: 1px solid black;
+}
+
+label {
+    width: 511px;
+    height: 50px;
+    background-color: white;
+    border: none;
+    padding-left: 15px;
+    margin-top: 15px;
+    font-size: 1.3em;
+    font-weight: 600;
+}
+
+
+button {
+    margin-left: 50px;
+    margin-top: 15px;
+    width: 200px;
+    height: 40px;
+    background-color: mediumseagreen;
+}
