@@ -1,14 +1,17 @@
 import React from "react"
-import "../css/list.css";
+import "../css/employeeList.css";
+
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const EmployeeList = ({employees, deleteEmp, updateEmp, name, lastname, email}) => {
     console.log(employees);
     return (
-        <div>
+        <div className="container-list">
             <h1 className="emp-list">Employee List</h1>
             <table>
                 <thead>
-                <tr>
+                <tr className="heading-list">
                     <td className="heading">Name</td>
                     <td className="heading">Last Name</td>
                     <td className="heading">Email</td>
@@ -24,8 +27,8 @@ const EmployeeList = ({employees, deleteEmp, updateEmp, name, lastname, email}) 
                             <td>{employee.lastname}</td>
                             <td>{employee.email}</td>
                             <td>
-                                <button onClick={()=> updateEmp(employee.id, {name:name, lastname:lastname, email:email})}>Edit</button>
-                                <button onClick={()=> deleteEmp(employee.id)}>Delete</button>
+                                <button className="edit-btn" onClick={()=> updateEmp(employee.id, {name:name, lastname:lastname, email:email})}><EditIcon id="i" /></button>
+                                <button className="delete-btn" onClick={()=> deleteEmp(employee.id)}><DeleteIcon id="i" /></button>
                             </td>
                         </tr>
                     ))

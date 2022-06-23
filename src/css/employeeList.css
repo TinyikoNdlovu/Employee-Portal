@@ -1,0 +1,27 @@
+.container-list {
+    margin-left: 60px;
+}
+.emp-list {
+    background-color: lightgray;
+    width: 92%;
+    height: 50px;
+}
+
+.heading{
+    font-weight: 700;
+    width: 190px;
+}
+
+.edit-btn {
+    border: none;
+    background-color: white;
+    width: 50px;
+    color: skyblue;
+}
+
+.delete-btn {
+    border: none;
+    width: 50px;
+    background-color: white;
+    color: red;
+}
