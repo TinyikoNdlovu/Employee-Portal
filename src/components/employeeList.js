@@ -12,10 +12,10 @@ const EmployeeList = ({employees, deleteEmp, updateEmp, name, lastname, email}) 
             <table>
                 <thead>
                 <tr className="heading-list">
-                    <td className="heading">Name</td>
-                    <td className="heading">Last Name</td>
-                    <td className="heading">Email</td>
-                    <td className="heading">Action</td>
+                    <th style={{textAlign: "center"}} className="heading">Name</th>
+                    <th style={{textAlign: "center"}} className="heading">Last Name</th>
+                    <th style={{textAlign: "center"}} className="heading">Email</th>
+                    <th style={{textAlign: "center"}} className="heading">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -27,7 +27,7 @@ const EmployeeList = ({employees, deleteEmp, updateEmp, name, lastname, email}) 
                             <td>{employee.lastname}</td>
                             <td>{employee.email}</td>
                             <td>
-                                <button className="edit-btn" onClick={()=> updateEmp(employee.id, {name:name, lastname:lastname, email:email})}><EditIcon id="i" /></button>
+                                <button className="edit-btn" to={'/updateEmployee/${id}'}><EditIcon id="i" /></button>
                                 <button className="delete-btn" onClick={()=> deleteEmp(employee.id)}><DeleteIcon id="i" /></button>
                             </td>
                         </tr>

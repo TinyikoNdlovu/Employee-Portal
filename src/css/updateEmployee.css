@@ -1,9 +1,9 @@
-.add-employees {
+.update-employees {
     display: grid;
     grid-template-rows: repeat(5, 1fr);
 }
 
-.new-emp {
+.update-emp {
     background-color: lightgray;
     width: 87%;
     height: 50px;
@@ -37,8 +37,4 @@ button {
     width: 200px;
     height: 40px;
     background-color: mediumseagreen;
-}
-
-button:hover {
-    pointer-events: cursor;
 }

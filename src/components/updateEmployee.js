@@ -1,10 +1,9 @@
-
 import React, {useState} from "react";
 import { db } from "../firebaseConfig";
 import { collection } from "firebase/firestore";
-import "../css/addEmployee.css"
+import "../css/updateEmployee.css"
 
-function AddEmployee({addEmployee, name, lastname, email, setFName, setLName, setEmail}) {
+function UpdateEmployee({updateEmp, name, lastname, email, setFName, setLName, setEmail}) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -15,7 +14,7 @@ function AddEmployee({addEmployee, name, lastname, email, setFName, setLName, se
             if (err) {
               toast.error(err);
             } else {
-              toast.success("Employee Added Successfully");
+              toast.success("Employee Updated Successfully");
             }
           });
         }
@@ -26,10 +25,9 @@ function AddEmployee({addEmployee, name, lastname, email, setFName, setLName, se
         <form style={{margin: "auto",
         padding: "15px",
         alignContent: "left"}} 
-        onSubmit={handleSubmit}
-        >
-            <div className="add-employees">
-            <h1 className="new-emp">New Employee</h1>
+        onSubmit={handleSubmit}>
+            <div className="update-employees">
+            <h1 className="update-emp">Update Employee Details Here</h1>
         
             <div className="input-fields">
                 <label htmlFor="name">First Name</label>
@@ -45,12 +43,15 @@ function AddEmployee({addEmployee, name, lastname, email, setFName, setLName, se
                 <label htmlFor="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="Enter email" onChange={(e) => setEmail(e.target.value)} />
             </div>
-            <div className="btn-container">
-                <button type="button" onClick={()=> addEmployee(name, lastname, email)}>Add Employee</button>
-            </div>
+            
+            <div>
+                <button type="button" onClick={()=> updateEmp(employee.id, {name:name, lastname:lastname, email:email})}>Update Employee</button>
+                <button type="button" onClick={()=> cancelClose()}>Cancel/Close</button>
+                </div>
+            
         </div>
         </form>
     );
 }
 
-export default AddEmployee;
+export default UpdateEmployee;

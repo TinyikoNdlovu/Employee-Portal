@@ -1,13 +1,18 @@
-import logo from './logo.svg';
+
 import './App.css';
 
 import React from "react";
 import AddEmployee from './components/addEmployee';
 import EmployeeList from './components/employeeList';
+import UpdateEmployee from './components/updateEmployee';
 
 import { useState, useEffect } from 'react';
 import { db } from "./firebaseConfig";
 import {collection, getDocs, addDoc, deleteDoc, doc, updateDoc} from "firebase/firestore";
+import { toHaveStyle } from '@testing-library/jest-dom/dist/matchers';
+
+import fireDb from "../firebase";
+import {toast} from "react-toastify";
 
 function App() {
   const [employees, setEmployees] = useState([]);
@@ -35,8 +40,16 @@ function App() {
   }
 
   const deleteEmployee = async(id) => {
-    let employee = await doc(employeeRef, id);
-    await deleteDoc(employee).then(getEmployees());
+    if(window.confirm("Are you sure that you want to delete that Employee ?")){
+      let employee = await doc(employeeRef, id).remove((err) => {
+        if (err) {
+          toast.error(err);
+        } else {
+          await deleteDoc(employee).then(getEmployees());
+          toast.success("Employee Deleted Successfully");
+        }
+      });
+    }
   }
 
   const updateEmployee = async(id, empData) => {
@@ -49,7 +62,8 @@ function App() {
     
       <div className='container'>
         <AddEmployee addEmployee ={addEmployee} name = {name} setFName = {setFName} lastname = {lastname} setLName = {setLName} email = {email} setEmail = {setEmail} />
-        <EmployeeList employees = {employees} deleteEmp = {deleteEmployee} updateEmp = {updateEmployee} name = {name} lastname = {lastname} email = {email} />
+        <EmployeeList employees = {employees} deleteEmp = {deleteEmployee} name = {name} lastname = {lastname} email = {email} />
+        <updateEmployee updateEmp = {updateEmployee} name = {name} lastname = {lastname} email = {email} />
       </div>
      
     </div>
