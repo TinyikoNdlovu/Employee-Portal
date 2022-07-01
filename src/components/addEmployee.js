@@ -4,39 +4,13 @@ import React, { useState } from "react";
 import { Alert } from "react-bootstrap"; 
 
 import "../css/addEmployee.css";
-import {db} from "../firebaseConfig";
-import {addDoc, collection} from "firebase/firestore";
-import EmployeeDataService from "../services/employeeServices";
+// import EmployeeDataService from "../services/employeeServices";
 
-function AddEmployee (props) {
+function AddEmployee ({addEmployee, name, setName, lastname, setLastName, email, setEmail}) {
 
-    const [name, setName] = useState("");
-    const [lastname, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [message, setMessage] = useState({error:false, msg:""});
+  const [message, setMessage] = useState({error:false, msg:""});
 
-    const add = (() => {
-      const collectionRef = collection(db, "employees");
-
-      const newEmployee = {
-        name: name,
-        lastname: lastname,
-        email: email,
-      };
-      console.log(newEmployee);
-
-      addDoc(collectionRef, newEmployee).then(()=>{
-        alert("Employee added successfully")
-      }).catch((err)=>{
-        console.log(err);
-      })
-
-      props.add(name, lastname, email);
-      setName("");
-      setLastName("");
-      setEmail("");
-      
-    })
+    
   
     const handleSubmit = async(e) => {
       e.preventDefault();
@@ -82,7 +56,7 @@ function AddEmployee (props) {
             <div className="btn-container">
 
 
-                <button type="submit" onClick={add}>Add Employee</button>
+                <button type="submit" onClick={() => addEmployee(name, lastname, email)}>Add Employee</button>
             </div>
         </div>
         </form>
