@@ -1,41 +1,13 @@
 
-import React, { useState } from "react";
-
-import { Alert } from "react-bootstrap"; 
+import React from "react";
 
 import "../css/addEmployee.css";
 // import EmployeeDataService from "../services/employeeServices";
 
 function AddEmployee ({addEmployee, name, setName, lastname, setLastName, email, setEmail}) {
 
-  const [message, setMessage] = useState({error:false, msg:""});
-
-    
-  
-    const handleSubmit = async(e) => {
-      e.preventDefault();
-      setMessage("");
-      if (name === "" || lastname === "" || email === "") {
-        setMessage({ error:true, msg: "All input fields are required, fill all fields!"});
-        return;
-      } 
-      
-    };
-
   return (
-
-    <>
-    <div className="p-4 box">
-    {message?.msg && ( 
-      <Alert variant={message?.error ? "danger" : "success"} 
-      dismissible 
-      onClose={() => setMessage("")}
-      >
-   
-    {message?.msg}
-    </Alert>
-    )}
-    <form onSubmit={handleSubmit}>
+    <form>
             <div className="add-employees">
             <h1 className="new-emp">New Employee</h1>
         
@@ -60,7 +32,6 @@ function AddEmployee ({addEmployee, name, setName, lastname, setLastName, email,
             </div>
         </div>
         </form>
-        </div></>
   );
 
 }

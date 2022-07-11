@@ -7,7 +7,7 @@ import AddEmployee from './components/addEmployee';
 import EmployeeList from './components/employeeList';
 
 // import EmployeeDataService from "./services/employeeServices";
-import { addDoc, collection, getDocs, updateDoc, deleteDoc, doc} from 'firebase/firestore';
+import { addDoc, collection, getDocs, deleteDoc, doc} from 'firebase/firestore';
 
 function App() {
 
@@ -32,8 +32,13 @@ function App() {
     console.log(newEmployee);
 
     addDoc(collectionRef, newEmployee).then(()=>{
-      alert("Employee added successfully");
-      getEmployees();
+        if(name === "" || lastname === "" || email === "") {
+          alert("All fields are required, please fill them");
+        } else {
+          alert("Employee added successfully");
+          getEmployees();
+        }
+      
     }).catch((err)=>{
       console.log(err);
     })
@@ -46,8 +51,17 @@ function App() {
 };
 
 const deleteEmployee = async(id) => {
-  const employee = await doc(collectionRef, id);
-  await deleteDoc(employee).then(getEmployees());
+ let data = await doc(collectionRef, id);
+ await deleteDoc(data).then(getEmployees());
+}
+
+const updateEmployee = (id, updatedEmployee, handleClose) => {
+  setEmployee([
+    ...employee.slice(0, id),
+    updatedEmployee,
+    ...employee.slice(id + 1, employee.length)
+  ])
+  handleClose()
 }
 
   return (
@@ -55,7 +69,7 @@ const deleteEmployee = async(id) => {
     
       <div className='container'>
         <AddEmployee add = {addEmployee} name={name} setName={setName} lastname={lastname} setLastName={setLastName} email={email} setEmail={setEmail} />
-        <EmployeeList list={employee} />
+        <EmployeeList list={employee} removeEmployee={deleteEmployee} updateEmployee={updateEmployee} />
       </div>
      
     </div>

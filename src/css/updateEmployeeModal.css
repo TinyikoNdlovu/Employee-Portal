@@ -1,0 +1,25 @@
+.update-btn {
+    border: none;
+    background-color: white;
+    width: 40px;
+    color: skyblue;
+}
+
+.input-field {
+    width: 52
+    0px;
+    height: 40px;
+    background-color: white;
+    border: none;
+    border: 1px solid black;
+}
+
+.text-label {
+    width: 500px;
+    height: 50px;
+    background-color: white;
+    border: none;
+    font-size: 1.3em;
+    font-weight: 600;
+}
+

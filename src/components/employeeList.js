@@ -3,30 +3,17 @@ import React from "react";
 // import EmployeeDataService from "../services/employeeServices";
 
 import "../css/employeeList.css";
-import {db} from "../firebaseConfig";
 
-import EditIcon from "@mui/icons-material/Edit";
+
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { collection, getDocs, updateDoc, deleteDoc, doc } from "firebase/firestore";
+import { doc } from "firebase/firestore";
+import UpdateModal from "./updateEmployeeModal";
 
 
-function EmployeeList ({list}) {
+function EmployeeList ({list, removeEmployee, name, lastName, email}) {
 
-    const updateEmployee = async (id, name, lastName, email) => {
-        const employeeDoc = doc(db, "employees", id);
-        const newFields = {name: name, lastName: lastName, email: email};
-        await updateDoc(employeeDoc, newFields);
-        alert("Employee updated successfully!");
-    }
-
-    const deleteEmployee = async(id) => {
-        const employeeDoc = doc(db, "employees", id);
-        await deleteDoc(employeeDoc);
-        alert("Do you really want to delete this Employee!");
-        
-    };
-
+    
     const viewHandler = async() => {}
 
     return (
@@ -44,14 +31,14 @@ function EmployeeList ({list}) {
                 <tbody>
                 {
                     
-                    list.map(employee => (
+                    list.map((employee, id) => (
                         <tr key={employee.id}>
                             <td>{employee.name}</td>
                             <td>{employee.lastname}</td>
                             <td>{employee.email}</td>
                             <td>
-                                <button className="edit-btn" onClick={(e) => updateEmployee(doc.id)}><EditIcon id="i" /></button> 
-                                <button className="delete-btn" onClick={(e) => deleteEmployee(doc.id)}><DeleteIcon id="i" /></button> 
+                                <UpdateModal selectedEmployee={employee} update={list.updateEmployee}></UpdateModal> 
+                                <button className="delete-btn" onClick={(e) => removeEmployee(employee.id)}><DeleteIcon id="i" /></button> 
                                  <button className="visibility-btn" onClick={(e) => viewHandler(doc.id)}><VisibilityIcon id="i" /></button> 
                             </td>
                         </tr>
