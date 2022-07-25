@@ -7,18 +7,17 @@ import "../css/employeeList.css";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { doc } from "firebase/firestore";
 import UpdateModal from "./updateEmployeeModal";
+import ViewEmployee from "./viewEmployee";
+import { Link } from "react-router-dom";
 
 
-function EmployeeList ({list, removeEmployee, name, lastName, email}) {
 
-    
-    const viewHandler = async() => {}
+function EmployeeList ({list, removeEmployee, name, lastname, email}) {
 
     return (
         <div className="container-list">
-            <h1 className="emp-list">Employee List</h1>
+            <label style={{textAlign:'center'}} className="emp-list">Employee List</label>
             <table>
                 <thead>
                 <tr className="heading-list">
@@ -39,7 +38,7 @@ function EmployeeList ({list, removeEmployee, name, lastName, email}) {
                             <td>
                                 <UpdateModal selectedEmployee={employee} update={list.updateEmployee}></UpdateModal> 
                                 <button className="delete-btn" onClick={(e) => removeEmployee(employee.id)}><DeleteIcon id="i" /></button> 
-                                 <button className="visibility-btn" onClick={(e) => viewHandler(doc.id)}><VisibilityIcon id="i" /></button> 
+                                 <button className="visibility-btn"><VisibilityIcon id="i" /></button> 
                             </td>
                         </tr>
                     ))
