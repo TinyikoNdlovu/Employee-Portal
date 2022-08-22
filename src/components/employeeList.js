@@ -11,43 +11,52 @@ import UpdateModal from "./updateEmployeeModal";
 import ViewEmployee from "./viewEmployee";
 import { Link } from "react-router-dom";
 
-
-
-function EmployeeList ({list, removeEmployee, name, lastname, email}) {
-
+const TableHeader = () => {
     return (
-        <div className="container-list">
-            <label style={{textAlign:'center'}} className="emp-list">Employee List</label>
-            <table>
-                <thead>
-                <tr className="heading-list">
-                    <th scope="col" style={{textAlign: "left"}} className="heading">Name</th>
+        
+        <thead>  
+            <tr className="heading-list">
+                    <th scope="col" style={{textAlign: "left",}} className="heading">Name</th>
                     <th scope="col"  style={{textAlign: "left"}} className="heading">Last Name</th>
                     <th scope="col"  style={{textAlign: "left"}} className="heading">Email</th>
                     <th scope="col"  style={{textAlign: "left"}} className="heading">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                {
-                    
-                    list.map((employee, id) => (
-                        <tr key={employee.id}>
+            </tr>
+        </thead>
+    )
+}
+
+const TableBody = props => {
+
+    const rows = props.employeeList.map((employee, id) => {
+        return (
+            <tr key={employee.id}>
                             <td>{employee.name}</td>
                             <td>{employee.lastname}</td>
                             <td>{employee.email}</td>
                             <td>
-                                <UpdateModal selectedEmployee={employee} update={list.updateEmployee}></UpdateModal> 
-                                <button className="delete-btn" onClick={(e) => removeEmployee(employee.id)}><DeleteIcon id="i" /></button> 
-                                 <button className="visibility-btn"><VisibilityIcon id="i" /></button> 
+                                <UpdateModal selectedEmployee={employee} id={id} update={props.updateEmployee}></UpdateModal>    
                             </td>
+                            <td><button className="delete-btn" onClick={(e) => props.deleteEmployee(id)}><DeleteIcon id="i" /></button></td>
+                            <td><button className="visibility-btn"><VisibilityIcon id="i" /></button> </td>
                         </tr>
-                    ))
-                }
-                </tbody>
-                
+        );
+    });
+
+    return <tbody>{rows}</tbody>;
+}
+
+const EmployeeList = (props) => {
+    const {employeeList, deleteEmployee, updateEmployee} = props;
+
+    return (
+        <div className="container" style={{marginLeft:'55%'}}>
+            <label style={{textAlign:'center', marginLeft:'100%', backgroundColor:' #D3D3D3', width:'70%', height:'50px', marginTop:'25px'}} className="emp-list">Employee List</label>
+            <table style={{paddingTop:'20%', marginLeft:'1%'}}>
+                <TableHeader></TableHeader>
+                <TableBody employeeList={employeeList} deleteEmployee={deleteEmployee} updateEmployee={updateEmployee} ></TableBody>
             </table>
         </div>
-    );
+    )
 }
 
 export default EmployeeList;

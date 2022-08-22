@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {db} from "../firebaseConfig";
 import {useParams, Link} from "react-router-dom";
 
-const ViewEmployee = () => {
+const ViewEmployee = ({list}) => {
     const [employee, setEmployee] = useState({});
 
     const {id} = useParams();

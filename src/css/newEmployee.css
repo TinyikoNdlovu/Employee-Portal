@@ -7,7 +7,7 @@
     background-color: lightgray;
     width: 70%;
     height: 50px;
-    margin-top: 20px;
+    margin-top: 25px;
     margin-left: 10px;
 }
 
@@ -15,7 +15,6 @@
     display: grid;
     padding-left: 15px;
     grid-template-rows: repeat(2, 1fr);
-    
 }
 
 input {

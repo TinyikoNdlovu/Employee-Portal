@@ -11,9 +11,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 import "../css/updateEmployeeModal.css";
 import EditIcon from "@mui/icons-material/Edit";
 
-const UpdateModal = (list) => {
+const UpdateModal = (props) => {
     const [open, setOpen] = React.useState(false);
-    const {selectedEmployee, id, update} = list
+    const {selectedEmployee, id, update} = props 
+    console.log(props);
     const [newValue, setValue] = useState({name:selectedEmployee.name, lastname:selectedEmployee.lastname, email:selectedEmployee.email})
 
   const handleClickOpen = () => {
@@ -23,6 +24,7 @@ const UpdateModal = (list) => {
 
   const handleClose = () => {
     setOpen(false);
+    console.log(newValue);
   };
 
   const handleChange = (e) => {
@@ -47,7 +49,8 @@ const UpdateModal = (list) => {
           <label className="text-label">Name</label>
           <input 
           className="input-field" 
-          type="text" name="name" 
+          type="text" 
+          name="name" 
           id="name" 
           value={newValue.name} 
           onChange={handleChange} />
@@ -80,3 +83,4 @@ const UpdateModal = (list) => {
 }
 
 export default UpdateModal;
+

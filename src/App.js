@@ -2,16 +2,20 @@
 import './App.css';
 
 import React, {useState, useEffect} from "react";
-import {db} from "./firebaseConfig";
-import AddEmployee from './components/addEmployee';
+import { db } from "./firebaseConfig";
+import NewEmployee from './components/newEmployee';
 import EmployeeList from './components/employeeList';
 
 // import EmployeeDataService from "./services/employeeServices";
-import { addDoc, collection, getDocs, deleteDoc, doc} from 'firebase/firestore';
+import { addDoc, collection, getDocs, deleteDoc, updateDoc, doc} from 'firebase/firestore';
+import { Grid } from '@mui/material';
 
 function App() {
 
   const [employees, setEmployees] = useState ([]);
+  const [name, setName] = useState('');
+  const [lastname, setLastName] = useState('');
+   const [email, setEmail] = useState('');
   const collectionRef = collection(db, "employees");
 
   useEffect(()=>{
@@ -28,33 +32,59 @@ const deleteEmployee = async(id) => {
  await deleteDoc(data).then(getEmployees());
 }
 
-const updateEmployee = (id, updatedEmployee, handleClose) => {
+const updateEmployee = async(employee, id, updatedEmployee, handleClose) => {
+  await updateDoc(collectionRef, id, {name: employee.name, lastname: employee.lastname, email:employee.email }).then( ()=> {
+    getEmployees();
+    console.log(updatedEmployee);
+    alert(employee.name + "updated successfully");
+  }).catch(error => {
+    alert(error.message);
+  })
   setEmployees([
-    ...employees.slice(0, id),
+    ...employee.slice(0, id),
     updatedEmployee,
-    ...employees.slice(id + 1, employees.length)
+    ...employee.slice(id + 1, employee.length)
   ])
   handleClose()
 }
 
-const submitNewEmployee = async(employee) => {
+const submitNewEmployee = async(newEmployee) => {
+  //console.log(newEmployee);
+  const collectionRef = collection(db, "employees");
+
+  const employee = {
+    name: name,
+    lastname: lastname,
+    email: email,
+};
+  
   await addDoc(collectionRef, employee).then(
     () => {
       getEmployees();
       alert(employee.name + " added successfully");
     }
-  ).catch(error=>{
+  ).catch(error => {
     alert(error.message);
   })
   
 }
 
+
   return (
     <div className="App">
     
       <div className='container'>
-        <AddEmployee submitEmployee={submitNewEmployee} />
-        <EmployeeList list={employees} removeEmployee={deleteEmployee} updateEmployee={updateEmployee} />
+        <Grid container spacing={2}>
+          <Grid item xs={4}>
+          <NewEmployee submitEmployee={submitNewEmployee} setName={setName} setLastName={setLastName} setEmail={setEmail}/>
+          </Grid>
+
+          <Grid item xs={8}>
+          <EmployeeList employeeList={employees} deleteEmployee={deleteEmployee} updateEmployee={updateEmployee} />
+          </Grid>
+        </Grid>
+        
+        
       </div>
      
     </div>
