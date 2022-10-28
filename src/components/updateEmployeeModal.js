@@ -13,7 +13,10 @@ import EditIcon from "@mui/icons-material/Edit";
 
 const UpdateModal = (props) => {
     const [open, setOpen] = React.useState(false);
-    const {selectedEmployee, id, update} = props 
+    const {selectedEmployee, id, updateEmployee} = props
+    
+    const [employee, setEmployee] = useState({})
+
     console.log(props);
     const [newValue, setValue] = useState({name:selectedEmployee.name, lastname:selectedEmployee.lastname, email:selectedEmployee.email})
 
@@ -75,7 +78,7 @@ const UpdateModal = (props) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={() => update(id, newValue, handleClose)}>Update</Button>
+          <Button onClick={() => handleChange(id, newValue, handleClose)}>Update</Button>
         </DialogActions>
       </Dialog>
     </div>

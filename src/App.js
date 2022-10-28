@@ -65,8 +65,7 @@ const submitNewEmployee = async(newEmployee) => {
     }
   ).catch(error => {
     alert(error.message);
-  })
-  
+  }) 
 }
 
 
